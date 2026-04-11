@@ -1,9 +1,10 @@
 import { LoginForm } from "@/components/LoginForm";
+import { resolvePostAuthRedirectPath } from "@/lib/post-auth-redirect";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-/** * Email/password auth entry; redirects authenticated users to submit. */
+/** * Email/password auth entry; redirects signed-in users (admins to /admin by default). */
 export default async function LoginPage({
   searchParams,
 }: {
@@ -15,7 +16,8 @@ export default async function LoginPage({
   } = await supabase.auth.getUser();
   const params = await searchParams;
   if (user) {
-    redirect(params.next ?? "/submit");
+    const nextParam = params.next ?? null;
+    redirect(resolvePostAuthRedirectPath(user.email ?? undefined, nextParam));
   }
 
   return (

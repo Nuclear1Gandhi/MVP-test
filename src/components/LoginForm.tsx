@@ -2,6 +2,7 @@
 
 import { Button, HelperText, InlineMessage, Input, Label } from "@/components/atoms";
 import { createClient } from "@/lib/supabase/client";
+import { isSafeRelativeAppPath } from "@/lib/safe-app-path";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -9,7 +10,8 @@ import { useState } from "react";
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const nextPath = searchParams.get("next") ?? "/submit";
+  const requestedNext = searchParams.get("next");
+  const nextPath = requestedNext ?? "/submit";
   const authError = searchParams.get("error");
 
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -57,8 +59,15 @@ export function LoginForm() {
         setMessage(error.message);
         return;
       }
-      router.push(nextPath);
-      router.refresh();
+      if (requestedNext && isSafeRelativeAppPath(requestedNext)) {
+        router.push(requestedNext);
+        router.refresh();
+        return;
+      }
+      window.location.assign(
+        new URL("/auth/post-login", window.location.origin).toString(),
+      );
+      return;
     } finally {
       setIsPending(false);
     }

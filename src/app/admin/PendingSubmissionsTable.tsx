@@ -13,6 +13,21 @@ import {
 import { MagnifyOutlineIcon } from "./svg/MagnifyOutlineIcon";
 
 /**
+ * * Formats an ISO timestamp for display with a fixed locale and time zone so SSR and the browser match.
+ */
+function formatSubmittedAt(iso: string): string {
+  return new Date(iso).toLocaleString("en-US", {
+    timeZone: "UTC",
+    year: "2-digit",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+/**
  * * Serializable row for the pending submissions admin table (built on the server).
  */
 export type PendingSubmissionTableRow = {
@@ -101,7 +116,7 @@ export function PendingSubmissionsTable({ rows }: PendingSubmissionsTableProps) 
   if (rows.length === 0) {
     return (
       <p className="mt-10 text-sm text-app-muted">
-        No pending submissions. When users submit, they appear here.
+        No pending submissions. When users submit, they appear here — click Refresh above to check for new ones.
       </p>
     );
   }
@@ -209,15 +224,7 @@ export function PendingSubmissionsTable({ rows }: PendingSubmissionsTableProps) 
                 </div>
               </td>
               <td className="p-3 align-top text-app-muted">
-                {row.created_at
-                  ? new Date(row.created_at).toLocaleString(undefined, {
-                      year: "2-digit",
-                      month: "numeric",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })
-                  : "—"}
+                {row.created_at ? formatSubmittedAt(row.created_at) : "—"}
               </td>
             </tr>
           ))}

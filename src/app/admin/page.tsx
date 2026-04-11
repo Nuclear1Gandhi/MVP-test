@@ -1,3 +1,4 @@
+import { AdminRefreshButton } from "./AdminRefreshButton";
 import {
   PendingSubmissionsTable,
   type PendingSubmissionTableRow,
@@ -103,10 +104,15 @@ export default async function AdminPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
-      <h1 className="text-2xl font-semibold tracking-tight text-app-text">Pending submissions</h1>
-      <p className="mt-2 text-sm text-app-muted">
-        Signed image links expire in one hour. Refresh the page to regenerate.
-      </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight text-app-text">Pending submissions</h1>
+          <p className="mt-2 text-sm text-app-muted">
+            Signed image links expire in one hour. Use Refresh to reload the list and regenerate links.
+          </p>
+        </div>
+        <AdminRefreshButton />
+      </div>
 
       <PendingSubmissionsTable rows={tableRows} />
     </div>
