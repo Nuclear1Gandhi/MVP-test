@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/* * Design tokens (light / dark via `data-theme` on `<html>`). */
+:root,
+[data-theme="light"] {
+  --color-bg: #f6f5f2;
+  --color-surface: #f9f8f6;
+  --color-surface-2: #fafaf8;
+  --color-surface-offset: #f0ede9;
+  --color-surface-offset-2: #eae7e2;
+  --color-surface-dynamic: #e2dfd9;
+  --color-divider: #dbd8d2;
+  --color-border: #d2cfc8;
+  --color-text: #1e1c18;
+  --color-text-muted: #6b6a66;
+  --color-text-faint: #b0afa9;
+  --color-text-inverse: #f8f7f3;
+  --color-primary: #016b71;
+  --color-primary-hover: #0b5057;
+  --color-primary-active: #0e363a;
+  --color-primary-highlight: #cddcda;
+  --color-primary-subtle: color-mix(in oklch, oklch(0.48 0.1 192) 8%, #f9f8f6);
+  --color-success: #3d7520;
+  --color-success-hover: #2a5a13;
+  --color-success-highlight: #d2dfca;
+  --color-success-subtle: color-mix(in oklch, oklch(0.55 0.15 138) 8%, #f9f8f6);
+  --color-warning: #8f3e16;
+  --color-warning-highlight: #ddd0c6;
+  --color-warning-subtle: color-mix(in oklch, oklch(0.55 0.14 48) 8%, #f9f8f6);
+  --color-error: #991b1b;
+  --color-error-hover: #7f1d1d;
+  --color-error-highlight: #e0cece;
+  --color-error-subtle: color-mix(in oklch, oklch(0.44 0.16 25) 8%, #f9f8f6);
+  --color-pending: #a16207;
+  --color-pending-hover: #854d0e;
+  --color-pending-highlight: #e9dec4;
+  --color-pending-subtle: color-mix(in oklch, oklch(0.6 0.15 70) 8%, #f9f8f6);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
+  --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
+  --shadow-card: 0 1px 2px oklch(0.2 0.01 80 / 0.06), 0 4px 16px oklch(0.2 0.01 80 / 0.04);
+  --shadow-card-hover: 0 2px 4px oklch(0.2 0.01 80 / 0.08), 0 12px 32px oklch(0.2 0.01 80 / 0.06);
+  --shadow-input: inset 0 1px 1px oklch(0.2 0.01 80 / 0.04);
+  --shadow-focus: 0 0 0 2px oklch(from var(--color-primary) l c h / 0.2);
+  --shadow-focus-error: 0 0 0 3px oklch(from var(--color-error) l c h / 0.18);
+  --ease-interactive: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-body: "General Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-theme="dark"] {
+  --color-bg: #141312;
+  --color-surface: #1a1917;
+  --color-surface-2: #1f1e1c;
+  /* * Slightly lifted from surface so offset wells (segmented controls, disabled inputs) read clearly. */
+  --color-surface-offset: #252422;
+  --color-surface-offset-2: #2e2c28;
+  --color-surface-dynamic: #2c2b28;
+  --color-divider: #252422;
+  --color-border: #363532;
+  --color-text: #cac9c6;
+  --color-text-muted: #747370;
+  --color-text-faint: #55534f;
+  --color-text-inverse: #282623;
+  --color-primary: #4c96a0;
+  --color-primary-hover: #227d89;
+  --color-primary-active: #1a6070;
+  --color-primary-highlight: #2f3b3c;
+  --color-primary-subtle: color-mix(in oklch, oklch(0.62 0.1 192) 12%, #1a1917);
+  --color-success: #68a643;
+  --color-success-hover: #4c8e27;
+  --color-success-highlight: #383f32;
+  --color-success-subtle: color-mix(in oklch, oklch(0.65 0.15 138) 12%, #1a1917);
+  --color-warning: #b76038;
+  --color-warning-highlight: #524640;
+  --color-warning-subtle: color-mix(in oklch, oklch(0.62 0.14 48) 12%, #1a1917);
+  --color-error: #de4a4a;
+  --color-error-hover: #c83232;
+  --color-error-highlight: #4a3232;
+  --color-error-subtle: color-mix(in oklch, oklch(0.55 0.18 25) 12%, #1a1917);
+  --color-pending: #d4a020;
+  --color-pending-hover: #e8b530;
+  --color-pending-highlight: #524835;
+  --color-pending-subtle: color-mix(in oklch, oklch(0.68 0.15 70) 12%, #1a1917);
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.25);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.35);
+  --shadow-card: 0 1px 3px oklch(0 0 0 / 0.3), 0 4px 16px oklch(0 0 0 / 0.2);
+  --shadow-card-hover: 0 2px 6px oklch(0 0 0 / 0.4), 0 12px 32px oklch(0 0 0 / 0.3);
+  --shadow-input: inset 0 1px 1px oklch(0 0 0 / 0.2);
+  --shadow-focus: 0 0 0 2px oklch(from var(--color-primary) l c h / 0.3);
+  --shadow-focus-error: 0 0 0 3px oklch(from var(--color-error) l c h / 0.25);
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-geist-mono);
+  --color-app-bg: var(--color-bg);
+  --color-app-text: var(--color-text);
+  --color-app-muted: var(--color-text-muted);
+  --color-app-faint: var(--color-text-faint);
+  --color-app-inverse: var(--color-text-inverse);
+  --color-app-surface: var(--color-surface);
+  --color-app-surface-2: var(--color-surface-2);
+  --color-app-offset: var(--color-surface-offset);
+  --color-app-offset-2: var(--color-surface-offset-2);
+  --color-app-dynamic: var(--color-surface-dynamic);
+  --color-app-border: var(--color-border);
+  --color-app-divider: var(--color-divider);
+  --color-app-primary: var(--color-primary);
+  --color-app-primary-hover: var(--color-primary-hover);
+  --color-app-primary-subtle: var(--color-primary-subtle);
+  --color-app-success: var(--color-success);
+  --color-app-success-highlight: var(--color-success-highlight);
+  --color-app-success-subtle: var(--color-success-subtle);
+  --color-app-error: var(--color-error);
+  --color-app-error-hover: var(--color-error-hover);
+  --color-app-error-subtle: var(--color-error-subtle);
+  --color-app-code-bg: var(--color-surface-offset);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color 300ms var(--ease-interactive),
+    color 300ms var(--ease-interactive);
+}
+
+::selection {
+  background: oklch(from var(--color-primary) l c h / 0.2);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* * Form controls use inset shadow + token ring in components; skip global outline to avoid doubling. */
+:where(input, textarea, select):focus-visible {
+  outline: none;
+}

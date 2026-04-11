@@ -1,0 +1,44 @@
+
+import { SiteHeader } from "@/components/SiteHeader";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import type { Metadata } from "next";
+import { Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Submission MVP",
+  description: "Submit images for review — Next.js + Supabase test task",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="flex min-h-full flex-col font-sans">
+        <ThemeProvider>
+          <SiteHeader />
+          <main className="flex flex-1 flex-col">{children}</main>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
